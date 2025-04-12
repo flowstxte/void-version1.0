@@ -1,0 +1,645 @@
+/* Theme Variables */
+:root {
+    /* Dark theme (default) */
+    --bg-color: linear-gradient(135deg, #232526, #414345);
+    --container-bg: rgba(30, 30, 30, 0.8);
+    --text-color: #f0f0f0;
+    --text-secondary: #aaa;
+    --border-color: #555;
+    --button-bg: #3a3a3a;
+    --button-hover: #4a4a4a;
+    --preset-bg: #444;
+    --preset-hover: #555;
+    --input-bg: #333;
+    --input-border: #555;
+    --pause-color: #e74c3c;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --custom-button-bg: #007bff;
+    --custom-button-hover: #0056b3;
+    --animation-element-color: rgba(255, 255, 255, 0.7);
+    --animation-border-color: rgba(255, 255, 255, 0.5);
+    --animation-glow-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Light theme */
+[data-theme="light"] {
+    --bg-color: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+    --container-bg: rgba(255, 255, 255, 0.9);
+    --text-color: #333;
+    --text-secondary: #666;
+    --border-color: #ccc;
+    --button-bg: #d4d4d4;
+    --button-hover: #c4c4c4;
+    --preset-bg: #e4e4e4;
+    --preset-hover: #d4d4d4;
+    --input-bg: #f5f5f5;
+    --input-border: #ccc;
+    --pause-color: #e74c3c;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --custom-button-bg: #0069d9;
+    --custom-button-hover: #0056b3;
+    --animation-element-color: rgba(100, 100, 100, 0.7);
+    --animation-border-color: rgba(100, 100, 100, 0.5);
+    --animation-glow-color: rgba(100, 100, 100, 0.1);
+}
+
+/* Basic Reset & Font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.container {
+    background-color: var(--container-bg);
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px var(--shadow-color);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--button-bg);
+    border: none;
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background-color: var(--button-hover);
+}
+
+.theme-toggle i {
+    font-size: 1.2em;
+}
+
+/* Tabs */
+.tabs {
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    transition: border-bottom 0.3s ease;
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+}
+
+.tab-button.active {
+    color: var(--text-color);
+    border-bottom: 3px solid var(--text-color);
+}
+
+.tab-button:hover:not(.active) {
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Clock Display */
+.clock-display {
+    font-size: 4.5em;
+    font-weight: 300;
+    margin: 20px 0 40px 0;
+    letter-spacing: 3px;
+    color: var(--text-color);
+    position: relative;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.3s ease;
+}
+
+.clock-display span {
+    display: inline-block;
+    min-width: 1.3em;
+    text-align: center;
+    transition: transform 0.1s ease-out, color 0.2s ease;
+}
+
+/* Ticking animation is handled by the .ticking class added via JS */
+
+/* Subtle scale animation for ticking effect */
+@keyframes tick {
+  0%, 100% { transform: scale(1); color: #e8e8e8; }
+  50% { transform: scale(1.05); color: #ffffff; }
+}
+
+/* Apply animation via JS by adding/removing this class */
+.ticking {
+    animation: tick 0.1s ease-out;
+}
+
+/* Custom Timer Input */
+.custom-timer-input {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.custom-timer-input input[type="number"] {
+    width: 60px;
+    padding: 8px 10px;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text-color);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1em;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.custom-timer-input input[type="number"]::-webkit-outer-spin-button,
+.custom-timer-input input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.custom-timer-input span {
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.custom-timer-input button {
+    background-color: var(--custom-button-bg);
+    color: white;
+    border: none;
+    padding: 9px 15px;
+    font-size: 0.9em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-timer-input button:hover {
+    background-color: var(--custom-button-hover);
+}
+
+/* Presets (Timer only) */
+.presets {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.preset-button {
+    background-color: var(--preset-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+}
+
+.preset-button:hover {
+    background-color: var(--preset-hover);
+    transform: translateY(-2px);
+}
+
+.preset-button:active {
+    transform: translateY(0);
+}
+
+
+/* Controls (Buttons) */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.controls button {
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease, transform 0.2s ease, color 0.3s ease;
+    box-shadow: 0 3px 5px var(--shadow-color);
+}
+
+.controls button:hover {
+    background-color: var(--button-hover);
+    box-shadow: 0 5px 8px var(--shadow-color);
+    transform: translateY(-2px);
+}
+
+.controls button:active {
+    background-color: #555;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+}
+
+/* Flash animation for feedback */
+@keyframes flash {
+  0%, 100% { background-color: rgba(30, 30, 30, 0.8); }
+  50% { background-color: rgba(80, 80, 80, 0.9); }
+}
+
+.timer-display.flash, .stopwatch-display.flash { /* Apply to clock displays */
+  animation: flash 0.5s ease-in-out;
+}
+
+/* Laps Display */
+.laps-container {
+    margin-top: 30px;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #444;
+}
+
+#laps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    font-size: 0.9em;
+}
+
+#laps-list li {
+    padding: 8px 15px;
+    border-bottom: 1px dashed #555;
+    display: flex;
+    justify-content: space-between;
+    color: #ccc;
+}
+
+#laps-list li:last-child {
+    border-bottom: none;
+}
+
+#laps-list .lap-number {
+    color: #aaa;
+    margin-right: 15px;
+}
+
+#laps-list .lap-time {
+    font-variant-numeric: tabular-nums;
+    color: #e0e0e0;
+}
+
+/* Style for Lap Button */
+#stopwatch-lap {
+    background-color: #555;
+}
+#stopwatch-lap:hover {
+    background-color: #666;
+}
+
+/* Specific button styling if needed */
+#timer-reset, #stopwatch-reset {
+    background-color: #666;
+}
+#timer-reset:hover, #stopwatch-reset:hover {
+    background-color: #777;
+}
+
+/* Paused state for stopwatch (toggled via JS on body) */
+body.stopwatch-paused .container {
+     box-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
+}
+
+/* Keep pause button red when paused */
+body.stopwatch-paused #stopwatch-resume {
+     background-color: #c0392b;
+     color: white;
+}
+body.stopwatch-paused #stopwatch-resume:hover {
+     background-color: #e74c3c;
+}
+
+body.stopwatch-paused .stopwatch-display {
+    color: #e74c3c;
+    animation: pulseRed 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseRed {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Animation Elements - Added from animation.html */
+.frame {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 1px solid var(--animation-border-color);
+    box-sizing: border-box;
+    transition: border-color 1s ease;
+    margin: 0 auto 20px;
+}
+
+.frame:hover {
+    border-color: var(--text-color);
+}
+
+.dots {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.dot {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: var(--animation-element-color);
+    border-radius: 50%;
+    transition: all 0.5s ease, background-color 0.3s ease;
+}
+
+.dot.pulse {
+    animation: pulseDot 2s infinite alternate;
+}
+
+@keyframes pulseDot {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
+
+.lines-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.line {
+    position: absolute;
+    height: 1px;
+    background-color: var(--animation-element-color);
+    transform-origin: 0 50%;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.line.glow {
+    animation: glowLine 3s infinite alternate;
+}
+
+@keyframes glowLine {
+    0% {
+        opacity: 0.5;
+        height: 1px;
+        box-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
+    }
+    100% {
+        opacity: 1;
+        height: 1.5px;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    }
+}
+
+.node {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--animation-element-color);
+    background-color: transparent;
+    transform: translate(-50%, -50%) rotate(45deg);
+    transition: all 0.3s ease, border-color 0.3s ease;
+}
+
+.node.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.background-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--animation-glow-color) 0%, rgba(255,255,255,0) 70%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 1s ease, background 0.3s ease;
+    z-index: -1;
+    animation: pulseGlow 4s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% {
+        opacity: 0.1;
+        width: 200px;
+        height: 200px;
+    }
+    100% {
+        opacity: 0.3;
+        width: 240px;
+        height: 240px;
+    }
+}
+
+/* Animation container positioning */
+.animation-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Add this to your existing CSS */
+.frame.flash {
+    animation: frameFlash 0.5s ease-in-out;
+    border-color: rgba(255, 255, 255, 1);
+}
+
+@keyframes frameFlash {
+    0%, 100% { border-color: rgba(255, 255, 255, 0.5); }
+    50% { border-color: rgba(255, 255, 255, 1); box-shadow: 0 0 15px rgba(255, 255, 255, 0.7); }
+}
+
+/* Adjust animation container for timer completion */
+body.stopwatch-paused .animation-container .frame {
+    border-color: rgba(231, 76, 60, 0.7);
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+}
+
+body.stopwatch-paused .animation-container .dot {
+    background-color: rgba(231, 76, 60, 0.7);
+}
+
+body.stopwatch-paused .animation-container .line {
+    background-color: rgba(231, 76, 60, 0.7);
+}
+
+body.stopwatch-paused .animation-container .node {
+    border-color: rgba(231, 76, 60, 0.7);
+}
+
+/* Timer Paused State - Similar to Stopwatch */
+body.timer-paused .container {
+    box-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
+}
+
+body.timer-paused #timer-resume {
+    background-color: #c0392b;
+    color: white;
+}
+
+body.timer-paused #timer-resume:hover {
+    background-color: #e74c3c;
+}
+
+body.timer-paused .timer-display {
+    color: var(--pause-color);
+    animation: pulseRed 1.5s infinite ease-in-out;
+}
+
+/* Animation elements for paused timer */
+body.timer-paused .animation-container .frame {
+    border-color: rgba(231, 76, 60, 0.7);
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+}
+
+body.timer-paused .animation-container .dot {
+    background-color: rgba(231, 76, 60, 0.7);
+}
+
+body.timer-paused .animation-container .line {
+    background-color: rgba(231, 76, 60, 0.7);
+}
+
+body.timer-paused .animation-container .node {
+    border-color: rgba(231, 76, 60, 0.7);
+}
+
+/* Smooth theme transition for all elements */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Scrollbar styling for light/dark themes */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--input-bg);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Laps container theme updates */
+.laps-container {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+#laps-list li {
+    border-bottom: 1px dashed var(--border-color);
+    color: var(--text-secondary);
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+#laps-list .lap-number {
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+#laps-list .lap-time {
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+/* Animation keyframes update for theme compatibility */
+@keyframes glowLine {
+    0% {
+        opacity: 0.5;
+        height: 1px;
+        box-shadow: 0 0 2px var(--animation-glow-color);
+    }
+    100% {
+        opacity: 1;
+        height: 1.5px;
+        box-shadow: 0 0 8px var(--text-color);
+    }
+}
+
+.node.active {
+    background-color: var(--animation-glow-color);
+    box-shadow: 0 0 10px var(--text-color);
+}

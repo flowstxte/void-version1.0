@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>void</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="theme-toggle">
+        <i class="fas fa-moon"></i>
+        <span>Dark Mode</span>
+    </button>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-button active" data-tab="timer">Timer</button>
+            <button class="tab-button" data-tab="stopwatch">Stopwatch</button>
+        </div>
+
+        <!-- Timer Section -->
+        <div class="tab-content active" id="timer">
+            <!-- Animation Container -->
+            <div class="animation-container">
+                <div class="background-glow"></div>
+                <div class="frame">
+                    <div class="dots" id="timer-dots"></div>
+                    <div class="lines-container" id="timer-lines-container"></div>
+                </div>
+            </div>
+            
+            <div class="clock-display timer-display">
+                <span id="timer-minutes">00</span>:<span id="timer-seconds">00</span>.<span id="timer-milliseconds">000</span>
+            </div>
+            <div class="presets">
+                <button class="preset-button" data-time="300">5 min</button>
+                <button class="preset-button" data-time="600">10 min</button>
+                <button class="preset-button" data-time="900">15 min</button>
+                <button class="preset-button" data-time="1800">30 min</button>
+            </div>
+            <div class="custom-timer-input">
+                <input type="number" id="custom-minutes" placeholder="MM" min="0" max="999">
+                <span>:</span>
+                <input type="number" id="custom-seconds" placeholder="SS" min="0" max="59">
+                <button id="set-custom-timer">Set</button>
+            </div>
+            <div class="controls">
+                <button id="timer-start">Start</button>
+                <button id="timer-pause" style="display: none;">Pause</button>
+                <button id="timer-resume" style="display: none;">Resume</button>
+                <button id="timer-reset">Reset</button>
+            </div>
+        </div>
+
+        <!-- Stopwatch Section -->
+        <div class="tab-content" id="stopwatch">
+            <!-- Animation Container -->
+            <div class="animation-container">
+                <div class="background-glow"></div>
+                <div class="frame">
+                    <div class="dots" id="stopwatch-dots"></div>
+                    <div class="lines-container" id="stopwatch-lines-container"></div>
+                </div>
+            </div>
+            
+            <div class="clock-display stopwatch-display">
+                <span id="stopwatch-minutes">00</span>:<span id="stopwatch-seconds">00</span>.<span id="stopwatch-milliseconds">000</span>
+            </div>
+            <div class="controls">
+                <button id="stopwatch-start">Start</button>
+                <button id="stopwatch-pause" style="display: none;">Pause</button>
+                <button id="stopwatch-resume" style="display: none;">Resume</button>
+                <button id="stopwatch-lap" style="display: none;">Lap</button>
+                <button id="stopwatch-reset">Reset</button>
+            </div>
+            <div class="laps-container">
+                <ul id="laps-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load scripts in the correct order -->
+    <script src="theme.js"></script>
+    <script src="elements.js"></script>
+    <script src="animation.js"></script>
+</body>
+</html>
